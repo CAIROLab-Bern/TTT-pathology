@@ -1,0 +1,14 @@
+_target_: modules.datamodule_precomputed_camelyon.PatchDataModule
+_partial_: true
+data_dir: ${data_root}/PathoROB/precomputed_embeddings_camelyon/embs_${backbone}
+metadata_file: ${data_root}/PathoROB/camelyon_metadata.csv
+feasible_splits_dir: ${data_root}/PathoROB/camelyon_splits.json
+histoplus_targets: ${data_root}/PathoROB/precomputed_embeddings_camelyon/histoplus_targets
+cramers_v: ${training.cramers_v}
+iteration: 0
+
+label_dict:
+  normal: 0
+  tumor: 1
+name: camelyon
+num_classes: 2

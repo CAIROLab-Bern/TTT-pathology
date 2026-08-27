@@ -1,0 +1,6 @@
+_target_: ttt.multitask_magnification.AuxilaryMagnificationTTTModulePrecomputed
+_partial_: true
+#ttt_mode: multitask
+# aux_task: auxilarySegmentation
+# losses:
+# - auxilarySegmentation_loss: dice_loss

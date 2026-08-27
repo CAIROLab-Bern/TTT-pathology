@@ -1,0 +1,64 @@
+defaults:
+  - optimizer: adamW
+  - scheduler: ReduceLROnPlateau
+  - datamodule: tolkach_ubelix_precomputed
+  - logger: wandb
+  - module: base_precomputed
+  - loss_fn@loss_fn.classification: focal_loss
+  - _self_
+
+data_root: ${oc.env:TTT_DATA_ROOT}
+output_root: ${oc.env:TTT_OUTPUT_ROOT}
+
+backbone: hoptimus1
+ttt_mode: Null
+precomputed: True
+
+training:
+  hyperparameter_search: Null
+  iterations_per_model: 20
+  max_epochs: 70
+  max_dataset_size: Null
+  batch_size: 16
+  device: cuda #or cpu
+  precision: bf16-mixed
+  checkpoint_path: Null
+  save_top_k: 1
+  accumulate_grad_batches: 1
+  checkpoint_monitor: val_loss
+  scheduler_monitor: train_loss
+  seed: 42
+  data_seed: 42
+  lr:  0.0003
+  num_workers: 16
+  limit_train_batches: Null
+  cramers_v: 0  # 0 for balanced, 1 for highly imbalanced
+  num_classes: ${datamodule.num_classes}
+  experiment_group: base #_${ttt_mode}
+  experiment_name: ${backbone}_cramersv_${training.cramers_v}_2
+  ckpt_dir: ${output_root}/classification_patch_${datamodule.name}/base/${datamodule.name}/${training.experiment_name}
+
+callbacks:
+- log_metrics_callback
+- plot_confusion_matrix_callback
+# - log_images_callback
+#- log_segmentation_callback
+
+
+metrics:
+  - accuracy
+  - f1_score
+
+loss_fn_weights:
+    classification: 1.0
+    auxilary: 1.0
+
+hydra:
+  run:
+    dir: ${output_root}/classification_patch_${datamodule.name}/${training.experiment_group}/${datamodule.name}/${training.experiment_name}
+  job:
+    name:  ${training.experiment_name}
+  sweep:
+    dir:   ${output_root}/classification_patch_${datamodule.name}/${training.experiment_group}/${datamodule.name}/
+    subdir: ${training.experiment_name}
+

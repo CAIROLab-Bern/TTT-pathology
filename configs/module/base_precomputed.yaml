@@ -1,0 +1,2 @@
+_target_: modules.base_module_precomputed.ClassifierModule
+_partial_: true

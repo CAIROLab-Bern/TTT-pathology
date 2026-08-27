@@ -1,0 +1,4 @@
+_target_: pytorch_lightning.loggers.TensorBoardLogger
+_partial_: true
+log_graph: false
+default_hp_metric: true

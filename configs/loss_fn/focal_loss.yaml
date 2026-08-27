@@ -1,0 +1,4 @@
+_target_: pytorch_lightning_spells.losses.Poly1FocalLoss
+num_classes: ${training.num_classes}
+reduction: mean
+label_is_onehot: false

@@ -1,0 +1,23 @@
+_target_: modules.datamodule_precomputed_magnification.PatchDataModule
+_partial_: true
+data_dir: ${data_root}/PathoROB/precomputed_embeddings_tolkach/embs_${backbone}
+metadata_file: metadata/tolkach_esca_metadata.csv
+feasible_splits_dir: metadata/tolkach_splits.json
+validation_splits_dir:  metadata/tolkach_validation_splits.json
+histoplus_targets: ${data_root}/PathoROB/precomputed_embeddings_tolkach/histoplus_targets
+CHA_split_id: 0
+CHA_split_val_id: 0
+WNS_split_id: 0
+WNS_split_val_id: 0
+cramers_v: ${training.cramers_v}
+bio_class_distribution_id: 0
+
+label_dict:
+ ADVENT: 0
+ MUSC_PROP: 1
+ SH_MAG: 2
+ SH_OES: 3       
+ TUMOR: 4
+ REGR_TU: 5
+name: tolkach
+num_classes: 6
